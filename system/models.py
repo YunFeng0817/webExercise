@@ -17,6 +17,6 @@ class Student(models.Model):
 class Teacher(models.Model):
     TeacherID=models.CharField(primary_key=True,max_length=20)
     Name=models.CharField(max_length=20)
-    Password=models.CharField(max_length=20)
+    password=models.CharField(max_length=20)
     def __str__(self):
         return self.id,self.Name
