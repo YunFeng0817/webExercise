@@ -12,11 +12,11 @@ class Student(models.Model):
     password=models.CharField(max_length=20)
     sum=models.FloatField(max_length=5,default=0)
     def __str__(self):
-        return self.id,self.Name
+        return self.StudentID
 
 class Teacher(models.Model):
     TeacherID=models.CharField(primary_key=True,max_length=20)
     Name=models.CharField(max_length=20)
     password=models.CharField(max_length=20)
     def __str__(self):
-        return self.id,self.Name
+        return self.TeacherID
