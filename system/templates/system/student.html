@@ -5,6 +5,38 @@
     <title>Title</title>
 </head>
 <body>
-
+<h1>
+    你好！{{ student_score.Name }}
+</h1>
+<br>
+<table>
+    <caption>
+        {{ student_score.Name }}的成绩
+    </caption>
+    <tbody>
+    <tr>
+        <th>学号</th>
+        <th>你的名字</th>
+        <th>语文</th>
+        <th>数学</th>
+        <th>英语</th>
+        <th>物理</th>
+        <th>化学</th>
+        <th>总分</th>
+        <th>排名</th>
+    </tr>
+    <tr>
+        <td>{{ student_score.StudentID }}</td>
+        <td>{{ student_score.Name }}</td>
+        <td>{{ student_score.Chinese }}</td>
+        <td>{{ student_score.Math }}</td>
+        <td>{{ student_score.English }}</td>
+        <td>{{ student_score.Physics }}</td>
+        <td>{{ student_score.Chemistry }}</td>
+        <td>{{ student_score.sum }}</td>
+        <td>{{ Ranking }}</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

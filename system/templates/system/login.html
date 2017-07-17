@@ -5,6 +5,56 @@
     <title>Title</title>
 </head>
 <body>
+{% if error %}<p><strong>{{ error }}</strong></p>{% endif %}
+<form action="{% url 'system:loginAction' %}" method="post">
+    {% csrf_token %}
+    <label>
+        输入你的用户名称
+        <input type="text" name="ID" id="username"/>
+    </label>
+    <label>
+        选择用户类型
+        <select name="select" >
+        <option value="0">
+            学生
+        </option>
+        <option value="1">
+            教师
+        </option>
+        </select>
+    </label>
+    <br>
+    <label>
+        输入你的密码
+        <input type="password" name="Password" />
+    </label>
+    <input type="submit" value="登录">
+</form>
+<script type="application/javascript" src="/static/js/jquery-2.2.1.min.js"></script>
+<script type="application/javascript" src="/static/plugins/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script>
+{#    根据<input>的id获取设定输入框焦点离开时的操作#}
+    $('#username').blur(function(){
+{#       获取用户输入的用户名 #}
+       var input_name=$(this).val();
+{#       调用ajax提交数据 #}
+       $.ajax({
+{#                指定提交的url#}
+                url:"/login/",
+{#                指定将获取的用户名提交给login()函数里的username变量用于验证#}
+                data:{username:input_name},
+{#                指定提交的数据的格式#}
+                type:'POST',
+{#                success用来接收login()函数执行之后的return HttpResponse返回值#}
+                success:function(arg){
+{#                    用arg接收到返回值后通过alert将返回的内容输出到页面上#}
+                    alert(arg)
+                }
+            });
+    });
+    document.getElementById('username').onblur(function () {
 
+    })
+</script>
 </body>
 </html>
