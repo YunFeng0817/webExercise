@@ -73,6 +73,9 @@ def logoutAction(request):
         del request.session['studentID']
         return redirect('login/')
     except KeyError:
+        del request.session['teacherID']
+        return redirect('login/')
+    except:
         raise Http404
 
 def sorted(request,subjectID):
