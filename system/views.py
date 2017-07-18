@@ -30,12 +30,14 @@ def loginAction(request):
                 teacher=Teacher.objects.get(pk=ID)
                 if Password==teacher.password:
                     request.session['teacherID']=ID
-                    return HttpResponseRedirect(reverse('system/student.html'))
+                    students=Student.objects.order_by('-sum')
+                    teacher=Teacher.objects.get(pk=ID)
+                    return render(request,'system/teacher.html',{'students':students,'teacher':teacher,'subject':'排名(按总分排名）'})
                 else:
                     return render(request, 'system/login.html', {'error': '你输入的密码错误'})
             else:
                 return HttpResponse('没有这个用户！')
-    return render(request,'')
+    return HttpResponse('只支持post请求')
 
 
 
@@ -73,3 +75,51 @@ def logoutAction(request):
     except KeyError:
         raise Http404
 
+def sorted(request,subjectID):
+    ID = request.session['teacherID']
+    teacher = Teacher.objects.get(pk=ID)
+    if subjectID=='0':
+        students = Student.objects.order_by('-sum')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按总分排名）'})
+    elif subjectID=='1':
+        students = Student.objects.order_by('-Chinese')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按语文排名）'})
+    elif subjectID=='2':
+        students = Student.objects.order_by('-Math')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按数学排名）'})
+    elif subjectID=='3':
+        students = Student.objects.order_by('-English')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按英语排名）'})
+    elif subjectID=='4':
+        students = Student.objects.order_by('-Physics')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按物理排名）'})
+    elif subjectID=='5':
+        students = Student.objects.order_by('-Chemistry')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按化学排名）'})
+    else:
+        raise Http404
+
+
+def delete(request):
+    ID = request.session['teacherID']
+    teacher = Teacher.objects.get(pk=ID)
+    lst=request.POST.getlist('selected_student')
+    for studentID in lst:
+        Student.objects.get(pk=studentID).delete()
+    students = Student.objects.order_by('-sum')
+    return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher, 'subject': '总分'})
+
+
+
+def search(request):
+    ID = request.session['teacherID']
+    teacher = Teacher.objects.get(pk=ID)
+    content=request.POST.get('search')
+    if list(Student.objects.filter(StudentID__icontains=content))!=[]:
+        students=Student.objects.filter(StudentID__icontains=content)
+        return render(request,'system/teacher.html',{'students': students, 'teacher': teacher})
+    elif list(Student.objects.filter(Name__icontains=content))!=[]:
+        students=list(Student.objects.filter(Name__icontains=content))
+        return render(request,'system/teacher.html',{'students': students, 'teacher': teacher})
+    else:
+        return HttpResponse('搜索无结果')
