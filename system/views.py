@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect,Http404
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
@@ -39,10 +39,37 @@ def loginAction(request):
 
 
 
+def changePassword(request):
+    try:
+        ID=request.session['studentID']
+    except:
+        ID=request.session['teacherID']
+    else:
+        return render(request, 'system/changePassword.html')
+    raise Http404
+
+def changeAction(request):
+    if request.method=='POST':
+        Password=request.POST['newPassword']
+        RepeatPassword=request.POST['repeatPassword']
+        if Password==RepeatPassword:
+            ID=request.session['studentID']
+            del request.session['studentID']
+            student=Student.objects.get(pk=ID)
+            student.password = Password
+            student.save()
+            Student.objects.get(pk=ID).save()
+            return render(request,'system/login.html',{'changePassword':'修改密码成功，请重新登录'})
+        else:
+            return
+    else:
+        return HttpResponse('只支持post请求')
+
+
 def logoutAction(request):
     try:
         del request.session['studentID']
+        return redirect('login/')
     except KeyError:
-        pass
-    return HttpResponse('你已经成功退出')
+        raise Http404
 

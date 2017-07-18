@@ -38,5 +38,11 @@
     </tr>
     </tbody>
 </table>
+<br>
+<a href="{% url 'system:changePassword' %}">修改密码</a>
+<form action="{% url 'system:logout' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="退出登录"/>
+</form>
 </body>
 </html>
