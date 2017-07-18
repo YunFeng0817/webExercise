@@ -7,5 +7,7 @@ urlpatterns=[
     url(r'^logout$',logoutAction,name='logout'),
     url(r'^change/$',changePassword,name='changePassword'),
     url(r'^change/Action/$',changeAction,name='changePasswordAction'),
-    url(r'^change/Action/(\d{1})/$',sorted,name='sortedChange')
+    url(r'^change/Action/(\d{1})/$',sorted,name='sortedChange'),
+    url(r'^delete/$',delete,name='delete'),
+    url(r'^search/$',search,name='search'),
 ]
