@@ -9,37 +9,68 @@
     你好！{{ teacher.Name }}
 </h1>
 <br>
-<table>
-    <caption>
-        学生成绩
-    </caption>
-    <tbody>
-    <tr>
-        <th>学号</th>
-        <th>你的名字</th>
-        <th>语文</th>
-        <th>数学</th>
-        <th>英语</th>
-        <th>物理</th>
-        <th>化学</th>
-        <th>总分</th>
-        <th>排名</th>
-    </tr>
-    {% for student in students %}
-    <tr>
-        <td>{{ student.StudentID }}</td>
-        <td>{{ student.Name }}</td>
-        <td>{{ student.Chinese }}</td>
-        <td>{{ student.Math }}</td>
-        <td>{{ student.English }}</td>
-        <td>{{ student.Physics }}</td>
-        <td>{{ student.Chemistry }}</td>
-        <td>{{ student.sum }}</td>
-        <td>{{ forloop.counter }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<form action="" method="post">
+    <table>
+        <caption>
+            学生成绩
+        </caption>
+    <input type="submit" value="删除"  name="delete"/>
+        <tbody>
+        <tr>
+            <th>学号</th>
+            <th>你的名字</th>
+            <th><a href="{% url 'system:sortedChange' '1' %}">语文</a></th>
+            <th><a href="{% url 'system:sortedChange' '2' %}">数学</a></th>
+            <th><a href="{% url 'system:sortedChange' '3' %}">英语</a></th>
+            <th><a href="{% url 'system:sortedChange' '4' %}">物理</a></th>
+            <th><a href="{% url 'system:sortedChange' '5' %}">化学</a></th>
+            <th><a href="{% url 'system:sortedChange' '0' %}">总分</a></th>
+            <th>排名(按{{ subject }}排名）</th>
+            <th>
+                <div>
+                    <input type="checkbox" id="mainBox" />
+                </div>
+            </th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.StudentID }}</td>
+            <td>{{ student.Name }}</td>
+            <td>{{ student.Chinese }}</td>
+            <td>{{ student.Math }}</td>
+            <td>{{ student.English }}</td>
+            <td>{{ student.Physics }}</td>
+            <td>{{ student.Chemistry }}</td>
+            <td>{{ student.sum }}</td>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                <div>
+                    <input type="checkbox" class="selected" name="selected_student" value={{ student.StudentID }} />
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</form>
 <br>
+<script type="text/javascript">
+    var box=document.getElementById('mainBox');
+    box.onclick=function () {
+        var boxes=document.getElementsByClassName('selected');
+        if(box.checked){
+            for ( var i=0;i<boxes.length;i++)
+            {
+                boxes[i].checked=true;
+            }
+        }
+        else{
+            for ( var j=0;j<boxes.length;j+=1)
+            {
+                boxes[j].checked=false;
+            }
+        }
+    }
+</script>
 </body>
 </html>

@@ -32,7 +32,7 @@ def loginAction(request):
                     request.session['teacherID']=ID
                     students=Student.objects.order_by('-sum')
                     teacher=Teacher.objects.get(pk=ID)
-                    return render(request,'system/teacher.html',{'students':students,'teacher':teacher})
+                    return render(request,'system/teacher.html',{'students':students,'teacher':teacher,'subject':'总分'})
                 else:
                     return render(request, 'system/login.html', {'error': '你输入的密码错误'})
             else:
@@ -74,4 +74,30 @@ def logoutAction(request):
         return redirect('login/')
     except KeyError:
         raise Http404
+
+def sorted(request,subjectID):
+    ID = request.session['teacherID']
+    teacher = Teacher.objects.get(pk=ID)
+    if subjectID=='0':
+        students = Student.objects.order_by('-sum')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'总分'})
+    elif subjectID=='1':
+        students = Student.objects.order_by('-Chinese')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'语文'})
+    elif subjectID=='2':
+        students = Student.objects.order_by('-Math')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'数学'})
+    elif subjectID=='3':
+        students = Student.objects.order_by('-English')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'英语'})
+    elif subjectID=='4':
+        students = Student.objects.order_by('-Physics')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'物理'})
+    elif subjectID=='5':
+        students = Student.objects.order_by('-Chemistry')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'化学'})
+    else:
+        raise Http404
+
+
 
