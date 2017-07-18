@@ -5,6 +5,41 @@
     <title>Title</title>
 </head>
 <body>
-
+<h1>
+    你好！{{ teacher.Name }}
+</h1>
+<br>
+<table>
+    <caption>
+        学生成绩
+    </caption>
+    <tbody>
+    <tr>
+        <th>学号</th>
+        <th>你的名字</th>
+        <th>语文</th>
+        <th>数学</th>
+        <th>英语</th>
+        <th>物理</th>
+        <th>化学</th>
+        <th>总分</th>
+        <th>排名</th>
+    </tr>
+    {% for student in students %}
+    <tr>
+        <td>{{ student.StudentID }}</td>
+        <td>{{ student.Name }}</td>
+        <td>{{ student.Chinese }}</td>
+        <td>{{ student.Math }}</td>
+        <td>{{ student.English }}</td>
+        <td>{{ student.Physics }}</td>
+        <td>{{ student.Chemistry }}</td>
+        <td>{{ student.sum }}</td>
+        <td>{{ forloop.counter }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br>
 </body>
 </html>
