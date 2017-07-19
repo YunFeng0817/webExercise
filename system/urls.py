@@ -10,4 +10,7 @@ urlpatterns=[
     url(r'^change/Action/(\d{1})/$',sorted,name='sortedChange'),
     url(r'^delete/$',delete,name='delete'),
     url(r'^search/$',search,name='search'),
+    url(r'^add/$',add,name='add'),
+    url(r'^change/(?P<studentID>[0-9]+)/$',change,name='change'),
+    url(r'^ACaction/$',ACaction,name='ACaction'),
 ]

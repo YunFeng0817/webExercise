@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'system:ACaction' %}" method="post">
+    {% csrf_token %}
+    <label>
+        学号
+        <input type="text" name="studentID" required value="{{ student.StudentID }}" />
+    </label>
+    <br>
+    <label>
+        姓名
+        <input type="text" name="Name" required value="{{ student.Name }}"/>
+    </label>
+    <br>
+    <label>
+        语文
+        <input type="number" name="Chinese"  required value="{{ student.Chinese }}"/>
+    </label>
+    <br>
+    <label>
+        数学
+        <input type="number" name="Math"  required value="{{ student.Math }}"/>
+    </label>
+    <br>
+    <label>
+        英语
+        <input type="number" name="English"  required value="{{ student.English }}"/>
+    </label>
+    <br>
+    <label>
+        物理
+        <input type="number" name="Physics" required  value="{{ student.Physics }}"/>
+    </label>
+    <br>
+    <label>
+        化学
+        <input type="number" name="Chemistry"  required value="{{ student.Chemistry }}"/>
+    </label>
+    <br>
+    <label>
+        密码
+        <input type="password" name="Password" value="123456" required/>
+    </label>
+    <br>
+    <input type="submit" value="提交保存">
+</form>
+</body>
+</html>

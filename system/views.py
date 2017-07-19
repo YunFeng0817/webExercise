@@ -126,3 +126,39 @@ def search(request):
         return render(request,'system/teacher.html',{'students': students, 'teacher': teacher})
     else:
         return HttpResponse('搜索无结果')
+
+
+
+def change(request,studentID):
+    student=Student.objects.get(pk=studentID)
+    return render(request,'system/ACStudent.html',{'student':student})
+
+
+def add(request):
+    return render(request,'system/ACStudent.html')
+def ACaction(request):
+    ID=request.POST.get('studentID')
+    Name=request.POST.get('Name')
+    Chinese=request.POST.get('Chinese')
+    Math=request.POST.get('Math')
+    English=request.POST.get('English')
+    Physics=request.POST.get('Physics')
+    Chemistry=request.POST.get('Chemistry')
+    Password=request.POST.get('Password')
+    try:
+        student=Student.objects.get(pk=ID)
+    except ObjectDoesNotExist:
+        student=Student()
+    except:
+        return Http404
+    student.StudentID=ID
+    student.Name = Name
+    student.Chinese = Chinese
+    student.Math = Math
+    student.English = English
+    student.Physics = Physics
+    student.Chemistry = Chemistry
+    student.sum=float(Chinese)+float(Math)+float(English)+float(Physics)+float(Chemistry)
+    student.password=Password
+    student.save()
+    return redirect('/system/change/Action/0/')
