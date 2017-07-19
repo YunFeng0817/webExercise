@@ -14,6 +14,38 @@
     <input type="search" autofocus placeholder="搜索学号或学生姓名" required name="search"/>
     <input type="submit" value="搜索">
 </form>
+<form action="{% url 'system:divided' %}" method="post">
+    {% csrf_token %}
+    <label>
+        分数段查询
+        <input type="number" required placeholder={{ start |default:'最低分'}}  name="start">
+    </label>
+    <label>
+        ----
+        <input type="number" required placeholder={{ end |default:'最高分'}} name="end">
+    </label>
+    <select name="subject">
+        <option value="Chinese" selected>
+            语文
+        </option>
+        <option value="Math">
+            数学
+        </option>
+        <option value="English">
+            英语
+        </option>
+        <option value="Physics">
+            物理
+        </option>
+        <option value="Chemistry">
+            化学
+        </option>
+        <option value="sum">
+            总分
+        </option>
+    </select>
+    <input type="submit" value="查询">
+</form>
 <form method="post" action="{% url 'system:add' %}">
     {% csrf_token %}
     <input type="submit" value="添加"/>
@@ -63,6 +95,7 @@
         </tbody>
     </table>
 </form>
+<a href="/system/change/Action/0/">所有学生成绩</a>
 <form action="{% url 'system:logout' %}" method="post">
     {% csrf_token %}
     <input type="submit" value="退出登录"/>

@@ -162,3 +162,58 @@ def ACaction(request):
     student.password=Password
     student.save()
     return redirect('/system/change/Action/0/')
+
+
+def divided(request):
+    ID = request.session['teacherID']
+    teacher = Teacher.objects.get(pk=ID)
+    start=request.POST.get('start')
+    end=request.POST.get('end')
+    subject=request.POST.get('subject')
+    students = Student.objects.order_by('-' + subject)
+    chooseStudent = []
+    if subject=='Chinese':
+        for student in students:
+            if float(student.Chinese)>=float(start) and float(student.Chinese)<float(end):
+                chooseStudent.append(student)
+        return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按语文排名）','start':start,'end':end})
+    elif subject=='Math':
+        for student in students:
+            if float(student.Math)>=float(start) and float(student.Math)<float(end):
+                chooseStudent.append(student)
+        return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按数学排名）','start':start,'end':end})
+    elif subject=='English':
+        for student in students:
+            if float(student.English)>=float(start) and float(student.English)<float(end):
+                chooseStudent.append(student)
+        return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按英语排名）','start':start,'end':end})
+    elif subject=='Physics':
+        for student in students:
+            if float(student.Physics)>=float(start) and float(student.Physics)<float(end):
+                chooseStudent.append(student)
+        return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按物理排名）','start':start,'end':end})
+    elif subject=='Chemistry':
+        for student in students:
+            if float(student.Chemistry)>=float(start) and float(student.Chemistry)<float(end):
+                chooseStudent.append(student)
+        return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按化学排名）','start':start,'end':end})
+    else:
+        for student in students:
+            if float(student.sum) >= float(start) and float(student.sum) < float(end):
+                chooseStudent.append(student)
+        return render(request, 'system/teacher.html', {'students': chooseStudent, 'teacher': teacher, 'subject':'排名(按总分排名）','start':start,'end':end})
+
+
+
+
+
+
+
+
+def choose(subject,start,end):
+    students=Student.objects.order_by('-'+subject)
+    chooseStudent=[]
+    if subject=='Chinese':
+        for student in students:
+            if float(student.Chinese)>=float(start) and float(student.Chinese)<float(end):
+                chooseStudent.append(student)

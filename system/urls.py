@@ -13,4 +13,5 @@ urlpatterns=[
     url(r'^add/$',add,name='add'),
     url(r'^change/(?P<studentID>[0-9]+)/$',change,name='change'),
     url(r'^ACaction/$',ACaction,name='ACaction'),
+    url(r'^divided/$',divided,name='divided'),
 ]
