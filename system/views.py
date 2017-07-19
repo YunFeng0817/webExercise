@@ -1,3 +1,4 @@
+#coding=UTF-8
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect,Http404
 from django.urls import reverse
