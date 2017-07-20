@@ -16,9 +16,12 @@ html{
     display: block;
 }
 #login_form{
-    position:absolute;
-    left: 750px;
-	top:117px;
+    position: relative;
+    left: 60%;
+	top:15%;
+    height: 350px;
+    width: 300px;
+    background-color:rgba(47,71,115,0.7) ;
     text-align: center;
 }
 /*设置输入框的样式*/
@@ -40,7 +43,7 @@ html{
     height: 40px;
     border: none;
     border-radius: 20px;
-    margin:30px;
+    margin:50px;
     color: white;
     font-family: 微软雅黑;
     font-size: 15px;
@@ -79,5 +82,9 @@ html{
     color:#fff;
 }
 #login_form label{
+    display: inline-block;
+    position: relative;
+    left: 0;
+    top: 20px;
     color: white;
 }
