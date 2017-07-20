@@ -80,27 +80,30 @@ def logoutAction(request):
         raise Http404
 
 def sorted(request,subjectID):
-    ID = request.session['teacherID']
-    teacher = Teacher.objects.get(pk=ID)
-    if subjectID=='0':
-        students = Student.objects.order_by('-sum')
-        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按总分排名）'})
-    elif subjectID=='1':
-        students = Student.objects.order_by('-Chinese')
-        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按语文排名）'})
-    elif subjectID=='2':
-        students = Student.objects.order_by('-Math')
-        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按数学排名）'})
-    elif subjectID=='3':
-        students = Student.objects.order_by('-English')
-        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按英语排名）'})
-    elif subjectID=='4':
-        students = Student.objects.order_by('-Physics')
-        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按物理排名）'})
-    elif subjectID=='5':
-        students = Student.objects.order_by('-Chemistry')
-        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按化学排名）'})
-    else:
+    try:
+        ID = request.session['teacherID']
+        teacher = Teacher.objects.get(pk=ID)
+        if subjectID=='0':
+            students = Student.objects.order_by('-sum')
+            return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按总分排名）'})
+        elif subjectID=='1':
+            students = Student.objects.order_by('-Chinese')
+            return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按语文排名）'})
+        elif subjectID=='2':
+            students = Student.objects.order_by('-Math')
+            return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按数学排名）'})
+        elif subjectID=='3':
+            students = Student.objects.order_by('-English')
+            return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按英语排名）'})
+        elif subjectID=='4':
+            students = Student.objects.order_by('-Physics')
+            return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按物理排名）'})
+        elif subjectID=='5':
+            students = Student.objects.order_by('-Chemistry')
+            return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher,'subject':'排名(按化学排名）'})
+        else:
+            raise Http404
+    except:
         raise Http404
 
 

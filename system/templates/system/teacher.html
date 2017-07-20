@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'system/teacher.css' %}" />
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -52,13 +54,13 @@
 </form>
 <form action="{% url 'system:delete' %}" method="post">
     {% csrf_token %}
-    <table>
+    <table id="scores">
         <caption>
             学生成绩
         </caption>
-    <input type="submit" value="删除"  name="delete"/>
         <tbody>
-        <tr>
+        <tr class="headTable">
+            <th></th>
             <th>学号</th>
             <th>你的名字</th>
             <th><a href="{% url 'system:sortedChange' '1' %}">语文</a></th>
@@ -67,15 +69,16 @@
             <th><a href="{% url 'system:sortedChange' '4' %}">物理</a></th>
             <th><a href="{% url 'system:sortedChange' '5' %}">化学</a></th>
             <th><a href="{% url 'system:sortedChange' '0' %}">总分</a></th>
-            <th>{{ subject }}</th>
+            <th style="width: auto;">{{ subject }}</th>
             <th>
                 <div>
-                    <input type="checkbox" id="mainBox" />
+                    <input type="submit" value="删除"  name="delete"/>
                 </div>
             </th>
         </tr>
         {% for student in students %}
-        <tr>
+        <tr class="contentTable">
+            <td style="width: 1%;">{{ forloop.counter }}</td>
             <td><a href='/system/change/{{ student.StudentID }}'>{{ student.StudentID }}</a></td>
             <td>{{ student.Name }}</td>
             <td>{{ student.Chinese }}</td>
@@ -85,7 +88,7 @@
             <td>{{ student.Chemistry }}</td>
             <td>{{ student.sum }}</td>
             <td>{{ forloop.counter }}</td>
-            <td>
+            <td style="width: 1%;">
                 <div>
                     <input type="checkbox" class="selected" name="selected_student" value={{ student.StudentID }} />
                 </div>
@@ -103,7 +106,7 @@
 </form>
 </body>
 <script type="text/javascript">
-    var box=document.getElementById('mainBox');
+   /* var box=document.getElementById('mainBox');
     box.onclick=function () {
         var boxes=document.getElementsByClassName('selected');
         if(box.checked){
@@ -118,6 +121,6 @@
                 boxes[j].checked=false;
             }
         }
-    }
+    }*/
 </script>
 </html>

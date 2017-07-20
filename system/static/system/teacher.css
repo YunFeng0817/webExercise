@@ -1,0 +1,36 @@
+/*coding=UTF-8*/
+#scores{
+    border: 1.5px solid gray;
+    color: black;
+    background-color: rgba(49,115,253,0.2);
+    border-collapse:collapse;/*将所有的表格线设置为单线*/
+    width: 50%;
+    position: relative;
+    text-align: center;
+}
+.headTable th{
+    background-color:rgba(27,66,254,0.4);
+    border: solid 1px gray;
+}
+.contentTable td{
+    text-align: center;
+    border: solid 1px gray;
+    width: 10%;
+}
+/*链接的样式设定*/
+a:link{
+    text-decoration: none;
+    color: blue;
+}
+a:visited{
+    text-decoration: none;
+    color: blue;
+}
+a:hover{
+    text-decoration: none;
+    color: deeppink;
+}
+a:active{
+    text-decoration: solid;
+    color: navy;
+}
