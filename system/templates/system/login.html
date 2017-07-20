@@ -1,63 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'system/login.css' %}" />
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>记录每一点进步</title>
 </head>
-<body>
+<body id="webStyle">
 {% if error %}<p><strong>{{ error }}</strong></p>{% endif %}
 <br>
 {% if changePassword %}<p><strong>{{ changePassword }}</strong></p>{% endif %}
-<form action="{% url 'system:loginAction' %}" method="post">
-    {% csrf_token %}
-    <label>
-        输入你的用户名称
-        <input type="text" name="ID" id="username"/>
-    </label>
-    <label>
-        选择用户类型
-        <select name="select" >
-        <option value="0">
-            学生
-        </option>
-        <option value="1">
-            教师
-        </option>
-        </select>
-    </label>
-    <br>
-    <label>
-        输入你的密码
-        <input type="password" name="Password" />
-    </label>
-    <br>
-    <input type="submit" value="登录">
-</form>
-<script type="application/javascript" src="/static/js/jquery-2.2.1.min.js"></script>
-<script type="application/javascript" src="/static/plugins/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<script>
-{#    根据<input>的id获取设定输入框焦点离开时的操作#}
-    $('#username').blur(function(){
-{#       获取用户输入的用户名 #}
-       var input_name=$(this).val();
-{#       调用ajax提交数据 #}
-       $.ajax({
-{#                指定提交的url#}
-                url:"/login/",
-{#                指定将获取的用户名提交给login()函数里的username变量用于验证#}
-                data:{username:input_name},
-{#                指定提交的数据的格式#}
-                type:'POST',
-{#                success用来接收login()函数执行之后的return HttpResponse返回值#}
-                success:function(arg){
-{#                    用arg接收到返回值后通过alert将返回的内容输出到页面上#}
-                    alert(arg)
-                }
-            });
-    });
-    document.getElementById('username').onblur(function () {
+<div id="login_form">
+    <form action="{% url 'system:loginAction' %}" method="post">
+        {% csrf_token %}
 
-    })
-</script>
+        <br>
+        <label>
+            <input type="text" name="ID" autofocus class="inputStyle" placeholder="用户名称"/>
+        </label>
+        <br>
+        <label>
+            <input type="password" class="inputStyle" name="Password" placeholder="密码" />
+        </label>
+        <br>
+        <label>
+            选择用户类型
+            <div class="selected">
+
+                <select name="select"  >
+                    <option value="0">
+                        学生
+                    </option>
+                    <option value="1">
+                        教师
+                    </option>
+                </select>
+            </div>
+        </label>
+        <br>
+        <input type="submit" id="submit" value="登录">
+        <br>
+        <!--<input type="button" class="submit"  value="登录">
+        <input type="button" class="submit" style=" transform: rotate(180deg);" value="登录">  wait to be completed-->
+    </form>
+</div>
+
 </body>
 </html>

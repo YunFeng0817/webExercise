@@ -1,0 +1,83 @@
+/*coding=UTF-8*/
+html{
+		margin: 0;
+		padding: 0;
+		height:100%;
+		width: 100%;
+}
+#webStyle{
+    height: 100%;
+    margin: 0 auto;
+	padding: 0;
+	width: 100%;
+    background-image: url("images/background.png");
+    background-repeat: no-repeat;
+    background-size:  100% 100%;
+    display: block;
+}
+#login_form{
+    position:absolute;
+    left: 750px;
+	top:117px;
+    text-align: center;
+}
+/*设置输入框的样式*/
+.inputStyle{
+    background-color: rgba(255,255,255,0.3);
+    width: 200px;
+    height:20px;
+    margin: 15px;
+    padding: 10px;
+    outline:none;    /*输入框光标的边框*/
+    border-radius: 20px;  /*设置边框的弯曲度*/
+    border-color: rgb(3,181,218);
+}
+
+/*设置submit按钮的样式*/
+#submit{
+    background-color: rgb(3,181,218);
+    width:100px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    margin:30px;
+    color: white;
+    font-family: 微软雅黑;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/*设置placeholder的颜色*/
+*::-webkit-input-placeholder{
+    color: white;
+}
+
+/*以下两个是用户类型选项的样式*/
+/*上下的width差28px*/
+.selected {
+    display: inline-block;
+    position: relative;
+    left: 0;
+    top: 10px;
+    background: url(images/select.png) no-repeat 96% 2px;/*后一个是select的上下位置*/
+    height: 35px;
+    overflow: hidden;
+    width: 80px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background-color: rgb(3,181,218);
+}
+
+.selected select {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    height: 35px;
+    padding: 5px;
+    width: 108px;
+    color:#fff;
+}
+#login_form label{
+    color: white;
+}
