@@ -114,7 +114,7 @@ def delete(request):
     for studentID in lst:
         Student.objects.get(pk=studentID).delete()
     students = Student.objects.order_by('-sum')
-    return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher, 'subject': '总分'})
+    return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher, 'subject': '排名(按总分排名）'})
 
 
 

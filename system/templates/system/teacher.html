@@ -6,51 +6,55 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<h1>
-    你好！{{ teacher.Name }}
-</h1>
-<br>
+<body style="text-align: center;width: 100%;height: 100%;margin:0;">
+<div class="header">
+    <h5>学生成绩管理系统</h5>
+    <p>你好！{{ teacher.Name }}老师</p>
+    <form action="{% url 'system:logout' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="退出登录" id="logout" />
+    <br>
+</form>
+</div>
+<a href="/system/change/Action/0/"id="all_scores">< 所有学生成绩</a>
 <form action="{% url 'system:search' %}" method="post">
     {% csrf_token %}
-    <input type="search" autofocus placeholder="搜索学号或学生姓名" required name="search"/>
-    <input type="submit" value="搜索">
+    <input type="text" autofocus placeholder="搜索学号或学生姓名" required name="search" class="input"/>
+    <input type="submit" value="搜索" class="submit">
 </form>
 <form action="{% url 'system:divided' %}" method="post">
     {% csrf_token %}
-    <label>
+    <label style="font-weight: bold">
         分数段查询
-        <input type="number" required placeholder={{ start |default:'最低分'}}  name="start">
+        <input type="number" required class="input" placeholder={{ start |default:'最低分'}} name="start">
     </label>
-    <label>
-        ----
-        <input type="number" required placeholder={{ end |default:'最高分'}} name="end">
+    <label style="font-weight: bold">
+        ————
+        <input type="number" required class='input' placeholder={{ end |default:'最高分'}} name="end">
     </label>
-    <select name="subject">
-        <option value="Chinese" selected>
-            语文
-        </option>
-        <option value="Math">
-            数学
-        </option>
-        <option value="English">
-            英语
-        </option>
-        <option value="Physics">
-            物理
-        </option>
-        <option value="Chemistry">
-            化学
-        </option>
-        <option value="sum">
-            总分
-        </option>
-    </select>
-    <input type="submit" value="查询">
-</form>
-<form method="post" action="{% url 'system:add' %}">
-    {% csrf_token %}
-    <input type="submit" value="添加"/>
+    <div class="selected">
+        <select name="subject">
+            <option value="Chinese" selected>
+                语文
+            </option>
+            <option value="Math">
+                数学
+            </option>
+            <option value="English">
+                英语
+            </option>
+            <option value="Physics">
+                物理
+            </option>
+            <option value="Chemistry">
+                化学
+            </option>
+            <option value="sum">
+                总分
+            </option>
+        </select>
+    </div>
+    <input type="submit" value="查询" class="submit">
 </form>
 <form action="{% url 'system:delete' %}" method="post">
     {% csrf_token %}
@@ -72,7 +76,7 @@
             <th style="width: auto;">{{ subject }}</th>
             <th>
                 <div>
-                    <input type="submit" value="删除"  name="delete"/>
+                    <input type="submit" value="删除"  name="delete" class="submit"/>
                 </div>
             </th>
         </tr>
@@ -90,7 +94,7 @@
             <td>{{ forloop.counter }}</td>
             <td style="width: 1%;">
                 <div>
-                    <input type="checkbox" class="selected" name="selected_student" value={{ student.StudentID }} />
+                    <input type="checkbox" id="choose" name="selected_student" value={{ student.StudentID }} />
                 </div>
             </td>
         </tr>
@@ -98,11 +102,9 @@
         </tbody>
     </table>
 </form>
-<a href="/system/change/Action/0/">所有学生成绩</a>
-<form action="{% url 'system:logout' %}" method="post">
+<form method="post" action="{% url 'system:add' %}">
     {% csrf_token %}
-    <input type="submit" value="退出登录"/>
-    <br>
+    <input type="submit" value="添加学生" id="add" />
 </form>
 </body>
 <script type="text/javascript">

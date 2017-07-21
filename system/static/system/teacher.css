@@ -1,4 +1,40 @@
 /*coding=UTF-8*/
+html{
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-align: center;
+}
+.header{
+    width: 100%;
+    height: 30%;
+    /*background-color: rgb(0,18,102);*/
+    background:url("images/star.jpg") 0,80px;
+    /*opacity:0.8;*/
+    background-repeat: no-repeat;
+    background-size: 100%,80%;
+}
+.header h5{
+    position: relative;
+    text-align: left;
+    top: 20%;
+    margin: 0;
+    font-family:华文宋体;
+    font-size: 3em;
+    color: rgb(255,255,72);
+    opacity: 1;
+}
+.header p{
+    position: relative;
+    text-align: left;
+    top: 30%;
+    margin: 0;
+    font-family:华文行楷;
+    font-size: 3em;
+    color: azure;
+    opacity: 1;
+}
+
 #scores{
     border: 1.5px solid gray;
     color: black;
@@ -6,7 +42,26 @@
     border-collapse:collapse;/*将所有的表格线设置为单线*/
     width: 50%;
     position: relative;
-    text-align: center;
+    left: 25%;
+}
+.submit{
+    border-radius: 10px;
+    border: none;
+    background-color:rgba(27,66,254,0.7) ;
+    color: white;
+}
+.input{
+    background-color: rgba(27,66,254,0.3);
+    width: 200px;
+    height:10px;
+    margin: 15px;
+    padding: 10px;
+    outline:none;    /*输入框光标的边框*/
+    border-radius: 20px;  /*设置边框的弯曲度*/
+    border-color: rgb(27,66,254);
+}
+.submit:hover{
+    background-color:rgba(27,66,254,0.5) ;
 }
 .headTable th{
     background-color:rgba(27,66,254,0.4);
@@ -33,4 +88,83 @@ a:hover{
 a:active{
     text-decoration: solid;
     color: navy;
+}
+input:hover{
+    collapse: solid;
+}
+#add{
+    position: relative;
+    left:23%;
+    margin: 1%;
+    background-image: url("images/add.svg") ;
+    background-color: rgb(27,66,254);
+    background-position: 90%;
+    background-repeat: no-repeat;
+    text-align:left;
+    color: white;
+    width: 80px;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+}
+#add:hover{
+    background-color: rgb(84,114,254);
+}
+
+.selected {
+    display: inline-block;
+    position: relative;
+    left: 0;
+    top: 10px;
+    background: url(images/select.png) no-repeat 96% -1px;/*后一个是select的上下位置*/
+    height: 28px;
+    overflow: hidden;
+    width: 80px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background-color: rgb(27,66,254);
+}
+
+.selected select {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    height: 28px;
+    padding: 5px;
+    width: 108px;
+    font-weight: bold;
+    color:rgb(136,157,255);
+}
+/*checkbox*/
+#choose {
+    height: 15px;
+    width: 80px;
+}
+
+#logout{
+    position: absolute;
+    top:18%;
+    left:90%;
+    background-color: rgb(3,181,218);
+    width:70px;
+    height: 25px;
+    border: none;
+    border-radius: 20px;
+    margin:50px;
+    color: white;
+    font-family: 微软雅黑;
+    font-size: 15px;
+    font-weight: bold;
+}
+#logout:hover{
+    background-color: rgb(3,198,239);
+}
+
+#all_scores{
+    position: absolute;
+    top: 35%;
+    left: 1%;
+    font-weight:bolder;
+    font-size: 1.5em;
 }
