@@ -64,7 +64,7 @@ def changeAction(request):
                 Student.objects.get(pk=ID).save()
                 return redirect('/login/')
             else:
-                return
+                return HttpResponse('两次输入的密码不相同，请重新确认！')
         else:
             return HttpResponse('只支持post请求')
     except:
