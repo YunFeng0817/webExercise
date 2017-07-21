@@ -38,35 +38,37 @@ def loginAction(request):
                     return render(request, 'system/login.html', {'error': '你输入的密码错误'})
             else:
                 return HttpResponse('没有这个用户！')
-    return HttpResponse('只支持post请求')
+    raise Http404
 
 
 
 def changePassword(request):
     try:
         ID=request.session['studentID']
-    except:
-        ID=request.session['teacherID']
-    else:
         return render(request, 'system/changePassword.html')
-    raise Http404
+    except:
+        raise Http404
 
 def changeAction(request):
-    if request.method=='POST':
-        Password=request.POST['newPassword']
-        RepeatPassword=request.POST['repeatPassword']
-        if Password==RepeatPassword:
-            ID=request.session['studentID']
-            del request.session['studentID']
-            student=Student.objects.get(pk=ID)
-            student.password = Password
-            student.save()
-            Student.objects.get(pk=ID).save()
-            return render(request,'system/login.html',{'changePassword':'修改密码成功，请重新登录'})
+    try:
+        ID = request.session['studentID']
+        if request.method=='POST':
+            Password=request.POST['newPassword']
+            RepeatPassword=request.POST['repeatPassword']
+            if Password==RepeatPassword:
+                ID=request.session['studentID']
+                del request.session['studentID']
+                student=Student.objects.get(pk=ID)
+                student.password = Password
+                student.save()
+                Student.objects.get(pk=ID).save()
+                return redirect('/login/')
+            else:
+                return
         else:
-            return
-    else:
-        return HttpResponse('只支持post请求')
+            return HttpResponse('只支持post请求')
+    except:
+        raise Http404
 
 
 def logoutAction(request):
@@ -108,116 +110,125 @@ def sorted(request,subjectID):
 
 
 def delete(request):
-    ID = request.session['teacherID']
-    teacher = Teacher.objects.get(pk=ID)
-    lst=request.POST.getlist('selected_student')
-    for studentID in lst:
-        Student.objects.get(pk=studentID).delete()
-    students = Student.objects.order_by('-sum')
-    return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher, 'subject': '排名(按总分排名）'})
+    try:
+        ID = request.session['teacherID']
+        teacher = Teacher.objects.get(pk=ID)
+        lst=request.POST.getlist('selected_student')
+        for studentID in lst:
+            Student.objects.get(pk=studentID).delete()
+        students = Student.objects.order_by('-sum')
+        return render(request, 'system/teacher.html', {'students': students, 'teacher': teacher, 'subject': '排名(按总分排名）'})
+    except:
+        raise Http404
 
 
 
 def search(request):
-    ID = request.session['teacherID']
-    teacher = Teacher.objects.get(pk=ID)
-    content=request.POST.get('search')
-    if list(Student.objects.filter(StudentID__icontains=content))!=[]:
-        students=Student.objects.filter(StudentID__icontains=content)
-        return render(request,'system/teacher.html',{'students': students, 'teacher': teacher})
-    elif list(Student.objects.filter(Name__icontains=content))!=[]:
-        students=list(Student.objects.filter(Name__icontains=content))
-        return render(request,'system/teacher.html',{'students': students, 'teacher': teacher})
-    else:
-        return HttpResponse('搜索无结果')
+    try:
+        ID = request.session['teacherID']
+        teacher = Teacher.objects.get(pk=ID)
+        content=request.POST.get('search')
+        if list(Student.objects.filter(StudentID__icontains=content))!=[]:
+            students=Student.objects.filter(StudentID__icontains=content)
+            return render(request,'system/teacher.html',{'students': students, 'teacher': teacher})
+        elif list(Student.objects.filter(Name__icontains=content))!=[]:
+            students=list(Student.objects.filter(Name__icontains=content))
+            return render(request,'system/teacher.html',{'students': students, 'teacher': teacher})
+        else:
+            return HttpResponse('搜索无结果')
+    except:
+        raise Http404
 
 
 
 def change(request,studentID):
-    student=Student.objects.get(pk=studentID)
-    return render(request,'system/ACStudent.html',{'student':student})
+    try:
+        ID = request.session['teacherID']
+        student=Student.objects.get(pk=studentID)
+        return render(request,'system/ACStudent.html',{'student':student})
+    except:
+        raise Http404
 
 
 def add(request):
-    return render(request,'system/ACStudent.html')
-def ACaction(request):
-    ID=request.POST.get('studentID')
-    Name=request.POST.get('Name')
-    Chinese=request.POST.get('Chinese')
-    Math=request.POST.get('Math')
-    English=request.POST.get('English')
-    Physics=request.POST.get('Physics')
-    Chemistry=request.POST.get('Chemistry')
-    Password=request.POST.get('Password')
     try:
-        student=Student.objects.get(pk=ID)
-    except ObjectDoesNotExist:
-        student=Student()
+        ID = request.session['teacherID']
+        return render(request,'system/ACStudent.html')
     except:
-        return Http404
-    student.StudentID=ID
-    student.Name = Name
-    student.Chinese = Chinese
-    student.Math = Math
-    student.English = English
-    student.Physics = Physics
-    student.Chemistry = Chemistry
-    student.sum=float(Chinese)+float(Math)+float(English)+float(Physics)+float(Chemistry)
-    student.password=Password
-    student.save()
-    return redirect('/system/change/Action/0/')
+        raise Http404
+
+
+def ACaction(request):
+    try:
+        teacherID = request.session['teacherID']
+        ID=request.POST.get('studentID')
+        Name=request.POST.get('Name')
+        Chinese=request.POST.get('Chinese')
+        Math=request.POST.get('Math')
+        English=request.POST.get('English')
+        Physics=request.POST.get('Physics')
+        Chemistry=request.POST.get('Chemistry')
+        Password=request.POST.get('Password')
+        try:
+            student=Student.objects.get(pk=ID)
+        except ObjectDoesNotExist:
+            student=Student()
+        except:
+            return Http404
+        student.StudentID=ID
+        student.Name = Name
+        student.Chinese = Chinese
+        student.Math = Math
+        student.English = English
+        student.Physics = Physics
+        student.Chemistry = Chemistry
+        student.sum=float(Chinese)+float(Math)+float(English)+float(Physics)+float(Chemistry)
+        student.password=Password
+        student.save()
+        return redirect('/change/Action/0/')
+    except:
+        raise Http404
 
 
 def divided(request):
-    ID = request.session['teacherID']
-    teacher = Teacher.objects.get(pk=ID)
-    start=request.POST.get('start')
-    end=request.POST.get('end')
-    subject=request.POST.get('subject')
-    students = Student.objects.order_by('-' + subject)
-    chooseStudent = []
-    if subject=='Chinese':
-        for student in students:
-            if float(student.Chinese)>=float(start) and float(student.Chinese)<float(end):
-                chooseStudent.append(student)
-        return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按语文排名）','start':start,'end':end})
-    elif subject=='Math':
-        for student in students:
-            if float(student.Math)>=float(start) and float(student.Math)<float(end):
-                chooseStudent.append(student)
-        return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按数学排名）','start':start,'end':end})
-    elif subject=='English':
-        for student in students:
-            if float(student.English)>=float(start) and float(student.English)<float(end):
-                chooseStudent.append(student)
-        return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按英语排名）','start':start,'end':end})
-    elif subject=='Physics':
-        for student in students:
-            if float(student.Physics)>=float(start) and float(student.Physics)<float(end):
-                chooseStudent.append(student)
-        return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按物理排名）','start':start,'end':end})
-    elif subject=='Chemistry':
-        for student in students:
-            if float(student.Chemistry)>=float(start) and float(student.Chemistry)<float(end):
-                chooseStudent.append(student)
-        return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按化学排名）','start':start,'end':end})
-    else:
-        for student in students:
-            if float(student.sum) >= float(start) and float(student.sum) < float(end):
-                chooseStudent.append(student)
-        return render(request, 'system/teacher.html', {'students': chooseStudent, 'teacher': teacher, 'subject':'排名(按总分排名）','start':start,'end':end})
+    try:
+        ID = request.session['teacherID']
+        teacher = Teacher.objects.get(pk=ID)
+        start=request.POST.get('start')
+        end=request.POST.get('end')
+        subject=request.POST.get('subject')
+        students = Student.objects.order_by('-' + subject)
+        chooseStudent = []
+        if subject=='Chinese':
+            for student in students:
+                if float(student.Chinese)>=float(start) and float(student.Chinese)<float(end):
+                    chooseStudent.append(student)
+            return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按语文排名）','start':start,'end':end})
+        elif subject=='Math':
+            for student in students:
+                if float(student.Math)>=float(start) and float(student.Math)<float(end):
+                    chooseStudent.append(student)
+            return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按数学排名）','start':start,'end':end})
+        elif subject=='English':
+            for student in students:
+                if float(student.English)>=float(start) and float(student.English)<float(end):
+                    chooseStudent.append(student)
+            return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按英语排名）','start':start,'end':end})
+        elif subject=='Physics':
+            for student in students:
+                if float(student.Physics)>=float(start) and float(student.Physics)<float(end):
+                    chooseStudent.append(student)
+            return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按物理排名）','start':start,'end':end})
+        elif subject=='Chemistry':
+            for student in students:
+                if float(student.Chemistry)>=float(start) and float(student.Chemistry)<float(end):
+                    chooseStudent.append(student)
+            return render(request, 'system/teacher.html',{'students': chooseStudent, 'teacher': teacher, 'subject': '排名(按化学排名）','start':start,'end':end})
+        else:
+            for student in students:
+                if float(student.sum) >= float(start) and float(student.sum) < float(end):
+                    chooseStudent.append(student)
+            return render(request, 'system/teacher.html', {'students': chooseStudent, 'teacher': teacher, 'subject':'排名(按总分排名）','start':start,'end':end})
+    except:
+        raise Http404
 
-
-
-
-
-
-
-
-def choose(subject,start,end):
-    students=Student.objects.order_by('-'+subject)
-    chooseStudent=[]
-    if subject=='Chinese':
-        for student in students:
-            if float(student.Chinese)>=float(start) and float(student.Chinese)<float(end):
-                chooseStudent.append(student)

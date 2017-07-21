@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'system/student.css' %}" />
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<h1>
-    你好！{{ student_score.Name }}
-</h1>
+<body style="text-align: center;width: 100%;height: 100%;margin:0;">
+<div class="header">
+    <h5>学生成绩管理系统</h5>
+    <p>你好！{{ student_score.Name }}同学</p>
+    <form action="{% url 'system:logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="退出登录" id="logout" />
+    </form>
+</div>
 <br>
-<table>
-    <caption>
+<a href="{% url 'system:changePassword' %}" id="changePassword">< 修改密码</a>
+<table id="scores">
+    <caption style="font-weight: bolder;font-family:微软雅黑;font-size: 1.1em;">
         {{ student_score.Name }}的成绩
     </caption>
     <tbody>
-    <tr>
+    <tr class="headTable">
         <th>学号</th>
         <th>你的名字</th>
         <th>语文</th>
@@ -25,7 +33,7 @@
         <th>总分</th>
         <th>排名</th>
     </tr>
-    <tr>
+    <tr class="contentTable">
         <td>{{ student_score.StudentID }}</td>
         <td>{{ student_score.Name }}</td>
         <td>{{ student_score.Chinese }}</td>
@@ -39,11 +47,10 @@
     </tbody>
 </table>
 <br>
-<a href="{% url 'system:changePassword' %}">修改密码</a>
-<form action="{% url 'system:logout' %}" method="post">
-    {% csrf_token %}
-    <input type="submit" value="退出登录"/>
-</form>
-<p>管理员联系电话：18846188605</p>
+<footer style="position: relative;color:rgb(27,66,254); ">
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <p>————————————————————————————————————————————————————————————————————————————————————</p>
+    <p>管理员联系方式：18846188605</p>
+</footer>
 </body>
 </html>

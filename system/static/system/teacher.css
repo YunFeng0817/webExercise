@@ -145,7 +145,7 @@ input:hover{
 #logout{
     position: absolute;
     top:18%;
-    left:90%;
+    left:85%;
     background-color: rgb(3,181,218);
     width:70px;
     height: 25px;
@@ -163,7 +163,7 @@ input:hover{
 
 #all_scores{
     position: absolute;
-    top: 35%;
+    top: 32%;
     left: 1%;
     font-weight:bolder;
     font-size: 1.5em;

@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'system/ACStudent.css' %}" />
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body style="text-align: center;width: 100%;height: 100%;margin:0;">
+<div class="header">
+    <h5>学生成绩管理系统</h5>
+    <br>
+</div>
 <form action="{% url 'system:ACaction' %}" method="post">
     {% csrf_token %}
     <label>
         学号
-        <input type="text" name="studentID" required value="{{ student.StudentID }}" />
+        <input type="text" name="studentID" required value="{{ student.StudentID }}" class="input" />
     </label>
     <br>
     <label>
         姓名
-        <input type="text" name="Name" required value="{{ student.Name }}"/>
+        <input type="text" name="Name" required value="{{ student.Name }}" class="input"/>
     </label>
     <br>
     <label>
         语文
-        <input type="number" name="Chinese"  required value="{{ student.Chinese }}"/>
+        <input type="number" name="Chinese"  required value="{{ student.Chinese }}" class="input"/>
     </label>
     <br>
     <label>
         数学
-        <input type="number" name="Math"  required value="{{ student.Math }}"/>
+        <input type="number" name="Math"  required value="{{ student.Math }}" class="input"/>
     </label>
     <br>
     <label>
         英语
-        <input type="number" name="English"  required value="{{ student.English }}"/>
+        <input type="number" name="English"  required value="{{ student.English }}" class="input"/>
     </label>
     <br>
     <label>
         物理
-        <input type="number" name="Physics" required  value="{{ student.Physics }}"/>
+        <input type="number" name="Physics" required  value="{{ student.Physics }}" class="input"/>
     </label>
     <br>
     <label>
         化学
-        <input type="number" name="Chemistry"  required value="{{ student.Chemistry }}"/>
+        <input type="number" name="Chemistry"  required value="{{ student.Chemistry }}" class="input"/>
     </label>
     <br>
     <label>
         密码
-        <input type="password" name="Password" value="123456" required/>
+        <input type="password" name="Password" value="123456" required class="input"/>
     </label>
     <br>
-    <input type="submit" value="提交保存">
+    <input type="submit" value="提交保存" class="submit">
 </form>
+<footer style="position: relative;color:rgb(27,66,254); ">
+    <p>————————————————————————————————————————————————————————————————————————————————————</p>
+    <p>管理员联系方式：18846188605</p>
+</footer>
 </body>
 </html>

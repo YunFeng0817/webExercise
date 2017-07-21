@@ -1,0 +1,55 @@
+/*coding=UTF-8*/
+html{
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-align: center;
+}
+.header{
+    width: 100%;
+    height: 20%;
+    /*background-color: rgb(0,18,102);*/
+    background:url("images/star.jpg") 0,80px;
+    /*opacity:0.8;*/
+    background-repeat: no-repeat;
+    background-size: 100%,80%;
+}
+.header h5{
+    position: relative;
+    text-align: left;
+    top: 20%;
+    margin: 0;
+    font-family:华文宋体;
+    font-size: 3em;
+    color: rgb(255,255,72);
+    opacity: 1;
+}
+
+.submit{
+    background-color: rgba(27,66,254,0.7);
+    width:100px;
+    height: 34px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-family: 微软雅黑;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.input{
+    background-color: rgba(27,66,254,0.3);
+    width: 200px;
+    height:10px;
+    margin: 15px;
+    padding: 10px;
+    outline:none;    /*输入框光标的边框*/
+    border-radius: 20px;  /*设置边框的弯曲度*/
+    border-color: rgb(27,66,254);
+}
+.submit:hover{
+    background-color:rgba(27,66,254,0.5) ;
+}
+input:hover{
+    collapse: solid;
+}
